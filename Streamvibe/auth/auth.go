@@ -4,12 +4,13 @@ package auth
 import (
 	"Streamvibe/catalogo" // Importa el paquete de catálogo que hemos creado, para manejar el catálogo de películas.
 	"Streamvibe/db"       // Importa el paquete de base de datos para las operaciones de la base de datos.
-	"bufio"               // Importamos el paquete 'bufio'. 'bufio' se utiliza para la lectura y escritura en búfer. Un 'búfer' es como un 'almacén temporal' - bufio nos da funciones para la entrada y salida de búfer.
-	"database/sql"        //para trabajar con funciones que nos dejen interactuar con bases de datos SQL.
-	"fmt"                 // Proporciona funciones para formatear y imprimir texto.
-	"log"                 // Funciones de registro para errores y mensajes importantes
-	"os"                  //interfaz para interactuar con el sistema operativo.
-	"strconv"             //funciones para convertir strings a otros tipos de datos.
+	"Streamvibe/generos"
+	"bufio"        // Importamos el paquete 'bufio'. 'bufio' se utiliza para la lectura y escritura en búfer. Un 'búfer' es como un 'almacén temporal' - bufio nos da funciones para la entrada y salida de búfer.
+	"database/sql" //para trabajar con funciones que nos dejen interactuar con bases de datos SQL.
+	"fmt"          // Proporciona funciones para formatear y imprimir texto.
+	"log"          // Funciones de registro para errores y mensajes importantes
+	"os"           //interfaz para interactuar con el sistema operativo.
+	"strconv"      //funciones para convertir strings a otros tipos de datos.
 )
 
 // userID almacena el ID del usuario actualmente autenticado.
@@ -78,11 +79,12 @@ func Login() int {
 	fmt.Printf("Inicio de sesión exitoso. ¡BIENVENIDO A STREAMVIBE!! ClienteID: %d\n", clienteID)
 	return clienteID
 }
-
 func UserMenu() {
 	for {
 		fmt.Println("Selecciona la Opción deseada")
-		fmt.Println("1. Catalogo de Películas\n2. Cerrar Sesión")
+		fmt.Println("1. Catalogo de Películas")
+		fmt.Println("2. Ver Géneros de Películas") // Nueva opción para ver géneros
+		fmt.Println("3. Cerrar Sesión")
 		fmt.Print("Ingrese su elección: ")
 
 		scanner := bufio.NewScanner(os.Stdin)
@@ -97,6 +99,7 @@ func UserMenu() {
 		case 1:
 			catalogo.ShowCatalog()
 		case 2:
+			generos.ShowGenres()
 			fmt.Println("Sesión cerrada. ¡Hasta luego!")
 			userID = 0
 			return
