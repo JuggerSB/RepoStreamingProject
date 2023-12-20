@@ -92,13 +92,13 @@ func SearchYoutube() {
 	scanner.Scan()
 	searchTerm := scanner.Text()
 
-	call := service.Search.List([]string{"snippet"}).Q(searchTerm).MaxResults(20)
+	call := service.Search.List([]string{"snippet"}).Q(searchTerm).MaxResults(5)
 	response, err := call.Do()
 	if err != nil {
 		log.Fatalf("Error al realizar la solicitud de búsqueda: %v", err)
 	}
 
-	// Iterar sobre los resultados y mostrar la información relevante
+	// Iterar sobre los resultados y mostrar solo titulo y descripcion
 	for _, item := range response.Items {
 		fmt.Printf("Título: %s\n", item.Snippet.Title)
 		fmt.Printf("Descripción: %s\n", item.Snippet.Description)
